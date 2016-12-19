@@ -99,7 +99,7 @@ class Client(BaseComponent):
             resource += "?" + p.query
         headers = Headers([(k, v) for k, v in headers.items()])
         # Clients MUST include Host header in HTTP/1.1 requests (RFC 2616)
-        if not headers.has_key("Host"):
+        if not "Host" in headers:
             headers["Host"] = self._host \
                 + (":" + str(self._port)) if self._port else ""
         command = "%s %s HTTP/1.1" % (method, resource)

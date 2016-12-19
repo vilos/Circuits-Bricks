@@ -50,7 +50,7 @@ class LanguagePreferences(BaseComponent):
         else:
             # Next, try accept header
             langdefs = request.headers.get("Accept-Language", "en")
-            if cls._cache.has_key(langdefs):
+            if langdefs in cls._cache:
                 langs = cls._cache[langdefs]
             else:
                 defs = dict()

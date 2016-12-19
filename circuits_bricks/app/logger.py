@@ -156,7 +156,7 @@ class Logger(BaseComponent):
                 "nteventlog": ["dllname", "logtype"],
                 "syslog": ["address", "facility", "socktype"],
                 "stderr": []}
-            if not known_dict.has_key(type):
+            if not type in known_dict:
                 raise ValueError
             known_args = known_dict[type]
             kwargs = dict()
@@ -184,14 +184,14 @@ class Logger(BaseComponent):
                 # Requires win32 extensions
                 handler = NTEventLogHandler(filename, **kwargs)
             elif type in ["syslog"]:
-                if kwargs.has_key("address"):
+                if "address" in kwargs:
                     address = kwargs.get("address")
                     hp = address.split(":", 2)
                     if len(hp) > 1:
                         kwargs["address"] = (hp[0], int(hp[1]))
                 else:
                     kwargs["address"] = "/dev/log"
-                if kwargs.has_key("socktype"):
+                if "socktype" in kwargs:
                     if kwargs["socktype"].lower() == "tcp":
                         kwargs["socktype"] = socket.SOCK_STREAM
                     else:
